@@ -1,0 +1,18 @@
+
+.course-preview {
+  float: left;
+  margin-right: 15px;
+}
+
+.course-preview-top {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.course-preview-items {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.textarea {
+  resize: none;
+}

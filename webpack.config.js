@@ -2,19 +2,26 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry:   path.join(__dirname, 'src', 'app-client.js'),
+  entry: "/src/app-client.js",
+  output: {
+    path: (__dirname, 'src', 'static', 'js'),
+    filename: 'bundle.js',
+    publicPath: "/src/static/"
+  }
+
+  /*entry:   path.join(__dirname, 'src', 'app-client.js'),
   output: {
     path: path.join(__dirname, 'src', 'static', 'js'),
-    filename: 'bundle.js'
+    filename: 'bundle.js'*/
   },
   module: {
     loaders: [{
       //test: path.join(__dirname, 'src'),
       test: path.join(__dirname, 'src'),
-      loader:'babel-loader',
+      loader:'babel',
       query: {
         cacheDirectory: 'babel_cache',
-        presets: ['react', 'es2015']
+        presets: ['react', 'es2015', 'react-hmre']
       }
     }]
   },

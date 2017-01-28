@@ -22,7 +22,7 @@ module.exports = {
       loader:'babel-loader',
       query: {
         //cacheDirectory: 'babel_cache',
-        presets: ['react', 'es2015']
+        presets: ['react', 'es2015', 'react-hmre']
       }
     }]
   },

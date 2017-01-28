@@ -6,7 +6,7 @@ export default class IndexPage extends React.Component {
     return (
       <div className="col-md-12">
         <NavBar />
-        <h1> Welcome to our page test </h1>
+        <h1> Welcome to our page</h1>
       </div>
     );
   }

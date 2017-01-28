@@ -2,26 +2,27 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: "/src/app-client.js",
+  entry: "./src/app-client.js",
   output: {
-    path: (__dirname, 'src', 'static', 'js'),
+    path: path.resolve(__dirname, "src/static/js"),
     filename: 'bundle.js',
-    publicPath: "/src/static/"
-  }
+    publicPath: "http://localhost:8080/src/static/"
+  },
 
   /*entry:   path.join(__dirname, 'src', 'app-client.js'),
   output: {
     path: path.join(__dirname, 'src', 'static', 'js'),
     filename: 'bundle.js'*/
-  },
+
   module: {
     loaders: [{
-      //test: path.join(__dirname, 'src'),
       test: path.join(__dirname, 'src'),
-      loader:'babel',
+      //test: /\.js$/,
+      exclude: /node_modules/,
+      loader:'babel-loader',
       query: {
-        cacheDirectory: 'babel_cache',
-        presets: ['react', 'es2015', 'react-hmre']
+        //cacheDirectory: 'babel_cache',
+        presets: ['react', 'es2015']
       }
     }]
   },
@@ -31,12 +32,12 @@ module.exports = {
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
+    /*new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       mangle: true,
       sourcemap: false,
       beautify: false,
       dead_code: true
-    })
+    })*/
   ]
 };

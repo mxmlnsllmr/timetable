@@ -78,7 +78,7 @@ export default class Courses extends React.Component {
           <div className="panel-body">
           <form onSubmit={this.handleSubmit}>
             <button type="button" className="btn btn-primary btn-lg glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#myModal">
-              <span>testtesttest</span>
+              <span></span>
             </button>
             <div><hr />
             </div>

@@ -7,7 +7,7 @@ export default class Timetable extends React.Component {
     return(
       <div className="col-md-12">
         <NavBar />
-        <h1> timetable </h1>
+        <h1> timetable</h1>
       </div>
     );
   }

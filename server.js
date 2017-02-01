@@ -8,6 +8,7 @@ var compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
+
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
@@ -16,10 +17,10 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, './src/static/index.html'));
 });
 
-app.listen(3000, function(err) {
+app.listen(8080, function(err) {
   if (err) {
     return console.error(err);
   }
 
-  console.log('Listening at http://localhost:3000/');
+  console.log('Listening at http://localhost:8080/');
 })

@@ -13,11 +13,33 @@ import { connect } from 'react-firebase'
   };
   firebase.initializeApp(config);
 
+var firebaseRef = firebase.database().ref('courses');
+
+var courses = [];
+
+var gotData = (data) => {
+  courses.push(data.val());
+  //courses = data.val();
+  console.log(courses.name);
+  //Object.keys(courses);
+  //console.log(courses);
+  /*keys = Object.keys(courses);
+  //console.log(keys);
+  for (let i = 0; i < keys.length; i++) {
+    let k = keys[i];
+    let name = courses[k].name;
+    let teacher = courses[k].teacher;
+    let place = courses[k].place;
+    //console.log(name, teacher, place);
+    console.log(courses);
+  }*/
+}
 
 
-
-var firebaseRef = firebase.database().ref().child('courses');
-var courses = new Array();
+var errData = (errData) => {
+  console.log('Error!');
+  console.log(errData);
+}
 
 export default class Courses extends React.Component {
   constructor(props) {
@@ -41,7 +63,7 @@ export default class Courses extends React.Component {
 
   handleSubmit(event) {
 
-    courses.push(
+    var courseData =
       {
         name: this.state.courseName,
         teacher: this.state.teacher,
@@ -49,24 +71,17 @@ export default class Courses extends React.Component {
         place: this.state.place,
         key: Date.now()
       }
-    );
-    for (var i = 0; i < courses.length; i++) {
-      console.log(courses[i]);
-    }
-    firebaseRef.set(courses);
+
+    firebaseRef.push(courseData);
+    firebaseRef.on('child_added', gotData, errData);
     event.preventDefault();
     this.forceUpdate();
   }
 
-  updateView() {
-    const rootRef = firebase.database().ref().child('courses');
-    rootRef.on('value', snap => {
-      this.setState({
-        name: snap.val()
-      });
-    });
+  createCoursePreview(){
+    <CoursePreview name = {courses.name} teacher = {courses.teacher} place = {courses.place} />
   }
-
+//{Object.keys(courses).map(courseData => <CoursePreview name={courses.name} teacher={courses.teacher} />)}
   render() {
     return (
       <div className="col-md-12">
@@ -107,7 +122,7 @@ export default class Courses extends React.Component {
             </form>
             <div className="course-selector">
               <h1>{this.state.name}</h1>
-              {courses.map(courseData => <CoursePreview key={courses.key} {...courseData} />)}
+              {courses.map(function(x){ return <CoursePreview name={x.name} teacher={x.teacher} />}) }
             </div>
           </div>
         </div>

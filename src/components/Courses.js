@@ -14,13 +14,19 @@ import { connect } from 'react-firebase'
   firebase.initializeApp(config);
 
 var firebaseRef = firebase.database().ref('courses');
-
-var courses = [];
-
+            //    {courses.map((x, i)=> <CoursePreview key={i} name={x.name} teacher={x.teacher} />)}
+//var courses = [];
+//var filteredCourses = [];
+var keys;
+var courses;
 var gotData = (data) => {
-  courses.push(data.val());
+  courses = data.val();
+  keys = Object.keys(courses);
+  console.log(keys);
+
+
   //courses = data.val();
-  console.log(courses.name);
+  //console.log(courses.name);
   //Object.keys(courses);
   //console.log(courses);
   /*keys = Object.keys(courses);
@@ -69,18 +75,16 @@ export default class Courses extends React.Component {
         teacher: this.state.teacher,
         description: this.state.description,
         place: this.state.place,
-        key: Date.now()
+        uniqueKey: Date.now()
       }
 
+    firebaseRef.on('value', gotData, errData);
     firebaseRef.push(courseData);
-    firebaseRef.on('child_added', gotData, errData);
     event.preventDefault();
     this.forceUpdate();
   }
 
-  createCoursePreview(){
-    <CoursePreview name = {courses.name} teacher = {courses.teacher} place = {courses.place} />
-  }
+
 //{Object.keys(courses).map(courseData => <CoursePreview name={courses.name} teacher={courses.teacher} />)}
   render() {
     return (
@@ -122,7 +126,14 @@ export default class Courses extends React.Component {
             </form>
             <div className="course-selector">
               <h1>{this.state.name}</h1>
-              {courses.map(function(x){ return <CoursePreview name={x.name} teacher={x.teacher} />}) }
+                {function test(){
+                  for(var i=0, i<keys.length; i++) {
+                  var k = keys[i];
+                  <CoursePreview name={courses[k].name} teacher={courses[k].teacher} />
+                  }
+                }}
+
+
             </div>
           </div>
         </div>

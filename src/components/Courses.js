@@ -3,6 +3,7 @@ import NavBar from './NavBar';
 import CoursePreview from './CoursePreview';
 import AddCourseBtn from './AddCourseBtn';
 import CourseInputModal from './CourseInputModal';
+//import firebaseRef from '../static/Firebase';
 import * as firebase from 'firebase';
 
 

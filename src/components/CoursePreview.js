@@ -1,5 +1,4 @@
-import React from 'react'
-import NavBar from './NavBar';
+import React from 'react';
 
 export default class CoursePreview extends React.Component {
   render() {

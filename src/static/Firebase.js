@@ -7,7 +7,5 @@ const config = {
   storageBucket: "timetable-cda28.appspot.com",
   messagingSenderId: "490238416904"
 };
-firebaseApp = firebase.initializeApp(config);
-const firebaseRef = firebase.database().ref('courses');
-
+const firebaseApp = firebase.initializeApp(config);
 export default firebaseApp;

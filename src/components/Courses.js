@@ -3,8 +3,7 @@ import NavBar from './NavBar';
 import CoursePreview from './CoursePreview';
 import AddCourseBtn from './AddCourseBtn';
 import CourseInputModal from './CourseInputModal';
-//import firebaseRef from '../static/Firebase';
-import * as firebase from 'firebase';
+import firebaseApp from '../static/Firebase';
 
 
 export default class Courses extends React.Component {
@@ -14,15 +13,7 @@ export default class Courses extends React.Component {
       courses: null
     };
 
-    const config = {
-      apiKey: "AIzaSyC7LjL7hd_fSmbxXCpy73w00aerbgLtHLA",
-      authDomain: "timetable-cda28.firebaseapp.com",
-      databaseURL: "https://timetable-cda28.firebaseio.com",
-      storageBucket: "timetable-cda28.appspot.com",
-      messagingSenderId: "490238416904"
-    };
-    firebase.initializeApp(config);
-    this.firebaseRef = firebase.database().ref('courses');
+    this.firebaseRef = firebaseApp.database().ref('courses');
 
     this.onGotData = this.onGotData.bind(this);
     this.updateFirebase = this.updateFirebase.bind(this);

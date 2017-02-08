@@ -1,8 +1,42 @@
 import React from 'react';
 
 export default class CourseInputModal extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      courseName: '',
+      teacher: '',
+      description: '',
+      place: '',
+      courses: null
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    const courseData =
+        {
+          name: this.state.courseName,
+          teacher: this.state.teacher,
+          description: this.state.description,
+          place: this.state.place,
+          uniqueKey: Date.now()
+        }
+    this.props.updateFirebase(courseData);
+    event.preventDefault();
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+
   render() {
-    return(
+    return (
         <form onSubmit={this.handleSubmit}>
           <div>
             <hr />

@@ -10,10 +10,6 @@ export default class Courses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      courseName: '',
-      teacher: '',
-      description: '',
-      place: '',
       courses: null
     };
 
@@ -27,9 +23,8 @@ export default class Courses extends React.Component {
     firebase.initializeApp(config);
     this.firebaseRef = firebase.database().ref('courses');
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.onGotData = this.onGotData.bind(this);
+    this.updateFirebase = this.updateFirebase.bind(this);
   }
 
   onGotData(data) {
@@ -43,28 +38,14 @@ export default class Courses extends React.Component {
     console.log(errData);
   }
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  handleSubmit(event) {
-    const courseData =
-        {
-          name: this.state.courseName,
-          teacher: this.state.teacher,
-          description: this.state.description,
-          place: this.state.place,
-          uniqueKey: Date.now()
-        }
-    this.firebaseRef.push(courseData);
-    event.preventDefault();
-  }
 
   componentDidMount() {
     console.log('component did mount');
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
+  }
+
+  updateFirebase(objectCourses) {
+    this.firebaseRef.push(objectCourses);
   }
 
   render() {
@@ -73,7 +54,8 @@ export default class Courses extends React.Component {
       const courseData = this.state.courses;
       const keys = Object.keys(courseData);
       coursePreviews = keys.map(function (key) {
-        return <CoursePreview name={courseData[key].name} teacher={courseData[key].teacher} place={courseData[key].place} key={key}/>
+        return <CoursePreview name={courseData[key].name} teacher={courseData[key].teacher}
+                              place={courseData[key].place} key={key}/>
       });
     }
 
@@ -87,7 +69,7 @@ export default class Courses extends React.Component {
             </div>
             <div className="panel-body">
               <AddCourseBtn />
-              <CourseInputModal  />
+              <CourseInputModal updateFirebase={this.updateFirebase}/>
               <div className="course-selector">
                 <h1>{this.state.name}</h1>
                 {coursePreviews}

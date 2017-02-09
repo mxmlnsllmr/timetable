@@ -18,16 +18,20 @@
   resize: none;
 }
 
-.test {
+.edit-remove-btns {
   float: right;
 }
 
-.test div {
+.edit-remove-btns div {
   visibility: hidden;
 }
 
-.test2:hover div {
+.edit-remove-btns-hover:hover div {
   visibility: visible;
+}
+
+.color-blue {
+  color: #428BCA;
 }
 
 .Spinner {

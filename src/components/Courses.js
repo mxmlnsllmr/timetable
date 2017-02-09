@@ -5,6 +5,7 @@ import AddCourseBtn from './AddCourseBtn';
 import CourseInputModal from './CourseInputModal';
 import firebaseApp from '../static/Firebase';
 import LoadingSpinner from './LoadingSpinner';
+import NoCourses from './NoCourses';
 
 
 export default class Courses extends React.Component {
@@ -20,6 +21,7 @@ export default class Courses extends React.Component {
     this.onGotData = this.onGotData.bind(this);
     this.createCourseInFirebase = this.createCourseInFirebase.bind(this);
     this.deleteCourseInFirebase = this.deleteCourseInFirebase.bind(this);
+    this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
   }
 
   onGotData(data) {
@@ -39,6 +41,9 @@ export default class Courses extends React.Component {
     console.log('component did mount');
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
 
+    var updates = {}
+    updates['/-KcZ3NYYs2SUedkeLRKX/'] = {'name':'update yeah die dritte','teacher':'Old McDonald','place':'Kiel'};
+    this.firebaseRef.update(updates);
   }
 
   createCourseInFirebase(objectCourses) {
@@ -49,6 +54,11 @@ export default class Courses extends React.Component {
     this.firebaseRef.child(data).remove();
   }
 
+  updateCourseInFirebase(keyValue) {
+    <CourseInputModal keyValue={keyValue}/>;
+    console.log(keyValue);
+  }
+
   render() {
 
     let loading;
@@ -56,16 +66,20 @@ export default class Courses extends React.Component {
       loading = <LoadingSpinner />
     }
 
-    let coursePreviews = <h1>No Courses :(</h1>;
+
+
+    let coursePreviews;
     if (this.state.courses !== null) {
       const courseData = this.state.courses;
       const firebaseKeys = Object.keys(courseData);
       coursePreviews = firebaseKeys.map(firebaseKey => <CoursePreview
-          deleteCourseInFirebase={this.deleteCourseInFirebase} firebaseKey={firebaseKey}
+          deleteCourseInFirebase={this.deleteCourseInFirebase} updateCourseInFirebase={this.updateCourseInFirebase} firebaseKey={firebaseKey}
           name={courseData[firebaseKey].name} teacher={courseData[firebaseKey].teacher}
           place={courseData[firebaseKey].place} key={firebaseKey}/>
       );
     }
+    else if (this.state.courses === null && !this.state.loadingData)
+      coursePreviews = <NoCourses/>;
 
     return (
         <div className="col-md-12">

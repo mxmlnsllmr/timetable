@@ -16,7 +16,8 @@ export default class Courses extends React.Component {
     this.firebaseRef = firebaseApp.database().ref('courses');
 
     this.onGotData = this.onGotData.bind(this);
-    this.updateFirebase = this.updateFirebase.bind(this);
+    this.createCourseInFirebase = this.createCourseInFirebase.bind(this);
+    this.deleteCourseInFirebase = this.deleteCourseInFirebase.bind(this);
   }
 
   onGotData(data) {
@@ -36,8 +37,12 @@ export default class Courses extends React.Component {
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
   }
 
-  updateFirebase(objectCourses) {
+  createCourseInFirebase(objectCourses) {
     this.firebaseRef.push(objectCourses);
+  }
+
+  deleteCourseInFirebase(data){
+    this.firebaseRef.child(data).remove();
   }
 
   render() {
@@ -47,7 +52,7 @@ export default class Courses extends React.Component {
       const keys = Object.keys(courseData);
       coursePreviews = keys.map(function (key) {
         return <CoursePreview name={courseData[key].name} teacher={courseData[key].teacher}
-                              place={courseData[key].place} key={key}/>
+                              place={courseData[key].place} key={key} deleteCourseInFirebase={this.deleteCourseInFirebase}/>
       });
     }
 
@@ -61,9 +66,8 @@ export default class Courses extends React.Component {
             </div>
             <div className="panel-body">
               <AddCourseBtn />
-              <CourseInputModal updateFirebase={this.updateFirebase}/>
+              <CourseInputModal createCourseInFirebase={this.createCourseInFirebase}/>
               <div className="course-selector">
-                <h1>{this.state.name}</h1>
                 {coursePreviews}
               </div>
             </div>

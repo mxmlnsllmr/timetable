@@ -41,9 +41,9 @@ export default class Courses extends React.Component {
     console.log('component did mount');
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
 
-    var updates = {}
-    updates['/-KcZ3NYYs2SUedkeLRKX/'] = {'name':'update yeah die dritte','teacher':'Old McDonald','place':'Kiel'};
-    this.firebaseRef.update(updates);
+    //var updates = {}
+    //updates['/-KcZ3NYYs2SUedkeLRKX/'] = {'name':'update yeah die dritte','teacher':'Old McDonald','place':'Kiel'};
+    //this.firebaseRef.update(updates);
   }
 
   createCourseInFirebase(objectCourses) {

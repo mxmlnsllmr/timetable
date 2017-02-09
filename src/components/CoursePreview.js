@@ -2,9 +2,14 @@ import React from 'react';
 
 export default class CoursePreview extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.deleteCourse = this.deleteCourse.bind(this);
+  }
+
   deleteCourse(event){
-    console.log(this.props.key);
-    //this.props.deleteCourseInFirebase(this.props.key);
+    //console.log(this.props.firebaseKey);
+    this.props.deleteCourseInFirebase(this.props.firebaseKey);
     event.preventDefault();
   }
 

@@ -4,12 +4,14 @@ import CoursePreview from './CoursePreview';
 import AddCourseBtn from './AddCourseBtn';
 import CourseInputModal from './CourseInputModal';
 import firebaseApp from '../static/Firebase';
+import LoadingSpinner from './LoadingSpinner';
 
 
 export default class Courses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loadingData: true,
       courses: null
     };
 
@@ -22,6 +24,7 @@ export default class Courses extends React.Component {
 
   onGotData(data) {
     this.setState({
+      loadingData: false,
       courses: data.val()
     });
   }
@@ -35,27 +38,34 @@ export default class Courses extends React.Component {
   componentDidMount() {
     console.log('component did mount');
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
+
   }
 
   createCourseInFirebase(objectCourses) {
     this.firebaseRef.push(objectCourses);
   }
 
-  deleteCourseInFirebase(data){
+  deleteCourseInFirebase(data) {
     this.firebaseRef.child(data).remove();
   }
 
   render() {
-    let coursePreviews;
-    if (this.state.courses !== null) {
-      const courseData = this.state.courses;
-      const keys = Object.keys(courseData);
-      coursePreviews = keys.map(function (key) {
-        return <CoursePreview name={courseData[key].name} teacher={courseData[key].teacher}
-                              place={courseData[key].place} key={key} deleteCourseInFirebase={this.deleteCourseInFirebase}/>
-      });
+
+    let loading;
+    if (this.state.loadingData) {
+      loading = <LoadingSpinner />
     }
 
+    let coursePreviews = <h1>No Courses :(</h1>;
+    if (this.state.courses !== null) {
+      const courseData = this.state.courses;
+      const firebaseKeys = Object.keys(courseData);
+      coursePreviews = firebaseKeys.map(firebaseKey => <CoursePreview
+          deleteCourseInFirebase={this.deleteCourseInFirebase} firebaseKey={firebaseKey}
+          name={courseData[firebaseKey].name} teacher={courseData[firebaseKey].teacher}
+          place={courseData[firebaseKey].place} key={firebaseKey}/>
+      );
+    }
 
     return (
         <div className="col-md-12">
@@ -68,6 +78,7 @@ export default class Courses extends React.Component {
               <AddCourseBtn />
               <CourseInputModal createCourseInFirebase={this.createCourseInFirebase}/>
               <div className="course-selector">
+                {loading}
                 {coursePreviews}
               </div>
             </div>

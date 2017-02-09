@@ -24,7 +24,7 @@ export default class CourseInputModal extends React.Component {
           place: this.state.place,
           uniqueKey: Date.now()
         }
-    this.props.updateFirebase(courseData);
+    this.props.createCourseInFirebase(courseData);
     event.preventDefault();
   }
 

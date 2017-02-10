@@ -13,6 +13,7 @@ export default class CourseInputModal extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isInputValid = this.isInputValid.bind(this);
   }
 
   handleSubmit(event) {
@@ -25,6 +26,7 @@ export default class CourseInputModal extends React.Component {
           uniqueKey: Date.now()
         }
     this.props.createCourseInFirebase(courseData);
+    console.log(this.isIputValid());
     event.preventDefault();
   }
 
@@ -32,6 +34,10 @@ export default class CourseInputModal extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  isInputValid() {
+    return this.state.courseName.length > 0 && this.state.teacher.length > 0 && this.state.place.length > 0;
   }
 
 
@@ -71,7 +77,7 @@ export default class CourseInputModal extends React.Component {
                   <button type="button" className="btn btn-default" data-dismiss="modal">
                     Close
                   </button>
-                  <button type="submit" value="Submit" className="btn btn-primary">Submit
+                  <button disabled={!this.isInputValid()} type="submit" value="Submit" className="btn btn-primary">Submit
                   </button>
                 </div>
               </div>

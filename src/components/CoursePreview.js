@@ -6,25 +6,13 @@ export default class CoursePreview extends React.Component {
   constructor(props) {
     super(props);
     this.deleteCourse = this.deleteCourse.bind(this);
-    //this.updateCourse = this.updateCourse.bind(this);
-    this.modalIdCourse = this.modalId.bind(this);
   }
 
   deleteCourse(event){
     this.props.deleteCourseInFirebase(this.props.firebaseKey);
     event.preventDefault();
   }
-  /*updateCourse(event) {
-    const obj = {
-      firebaseKey: this.props.firebaseKey,
-      courseName: this.props.name,
-      teacher: this.props.teacher,
-      place: this.props.place,
-      description: this.props.description
-    };
-    this.props.updateCourseInFirebase(obj);
-    event.preventDefault();
-  }*/
+
 
   modalId(){
     return 'myUpdateModal' + this.props.firebaseKey;
@@ -34,7 +22,6 @@ export default class CoursePreview extends React.Component {
   }
 
   render() {
-    console.log(this.modalId());
     return (
         <div className="course-preview list-group edit-remove-btns-hover">
           <h4 className="name list-group-item active course-preview-top">{this.props.name}
@@ -48,7 +35,7 @@ export default class CoursePreview extends React.Component {
             <div className="glyphicon glyphicon-pencil color-blue"></div>
           </div>
           </h4>
-          <CourseUpdateModal id={this.modalId()} courseName={this.props.name} teacher={this.props.teacher} place={this.props.place}/>
+          <CourseUpdateModal firebaseKey={this.props.firebaseKey} updateCourseInFirebase={this.props.updateCourseInFirebase} id={this.modalId()} courseName={this.props.name} teacher={this.props.teacher} place={this.props.place}/>
         </div>
     );
   }

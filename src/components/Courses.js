@@ -22,7 +22,7 @@ export default class Courses extends React.Component {
     this.onGotData = this.onGotData.bind(this);
     this.createCourseInFirebase = this.createCourseInFirebase.bind(this);
     this.deleteCourseInFirebase = this.deleteCourseInFirebase.bind(this);
-    //this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
+    this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
   }
 
   onGotData(data) {
@@ -40,9 +40,6 @@ export default class Courses extends React.Component {
 
   componentDidMount() {
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
-    //var updates = {}
-    //updates['/-KcZ3NYYs2SUedkeLRKX/'] = {'name':'update yeah die dritte','teacher':'Old McDonald','place':'Kiel'};
-    //this.firebaseRef.update(updates);
   }
 
   createCourseInFirebase(objectCourses) {
@@ -53,9 +50,11 @@ export default class Courses extends React.Component {
     this.firebaseRef.child(data).remove();
   }
 
-  /*updateCourseInFirebase(obj) {
-    this.data = obj;
-  }*/
+  updateCourseInFirebase(updateData) {
+    var updates = {};
+    updates[updateData.firebaseKey] = {'name':updateData.name,'teacher':updateData.teacher,'place': updateData.place};
+    this.firebaseRef.update(updates);
+  }
 
   render() {
     let loading;

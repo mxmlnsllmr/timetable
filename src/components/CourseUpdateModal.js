@@ -17,15 +17,15 @@ export default class CourseUpdateModal extends React.Component {
   }
 
   handleSubmit(event) {
-    const courseData =
+    const updateData =
         {
+          firebaseKey: this.props.firebaseKey,
           name: this.state.courseName,
           teacher: this.state.teacher,
           description: this.state.description,
-          place: this.state.place,
-          uniqueKey: Date.now()
+          place: this.state.place
         }
-    this.props.createCourseInFirebase(courseData);
+    this.props.updateCourseInFirebase(updateData);
     event.preventDefault();
   }
 
@@ -33,8 +33,6 @@ export default class CourseUpdateModal extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    //console.log(this.props.data);
-    //console.log(this.props.id);
   }
 
   isInputValid() {

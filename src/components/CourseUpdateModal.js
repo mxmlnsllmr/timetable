@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class CourseInputModal extends React.Component {
+export default class CourseUpdateModal extends React.Component {
 
   constructor(props) {
     super(props);
@@ -26,12 +26,6 @@ export default class CourseInputModal extends React.Component {
           uniqueKey: Date.now()
         }
     this.props.createCourseInFirebase(courseData);
-    this.setState({
-      courseName: '',
-      teacher: '',
-      description: '',
-      place: '',
-    });
     event.preventDefault();
   }
 
@@ -39,26 +33,36 @@ export default class CourseInputModal extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+    //console.log(this.props.data);
+    //console.log(this.props.id);
   }
 
   isInputValid() {
     return this.state.courseName.length > 0 && this.state.teacher.length > 0 && this.state.place.length > 0;
   }
 
+  componentDidMount(){
+    this.setState({
+      courseName: this.props.courseName,
+      teacher: this.props.teacher,
+      place: this.props.place
+    })
+  }
+
+
   render() {
     return (
         <form onSubmit={this.handleSubmit}>
           <div>
-            <hr />
           </div>
-          <div className="modal fade" id="myModal" tabIndex="-1" role="dialog"
+          <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog"
                aria-labelledby="myModalLabel">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
                   <button type="button" className="close" data-dismiss="modal"
                           aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 className="modal-title" id="myModalLabel">Add course</h4>
+                  <h4 className="modal-title" id="myModalLabel">edit course</h4>
                 </div>
                 <div className="modal-body">
                   <div className="input-group">

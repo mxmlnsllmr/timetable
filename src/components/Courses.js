@@ -3,6 +3,7 @@ import NavBar from './NavBar';
 import CoursePreview from './CoursePreview';
 import AddCourseBtn from './AddCourseBtn';
 import CourseInputModal from './CourseInputModal';
+import CourseUpdateModal from './CourseUpdateModal';
 import firebaseApp from '../static/Firebase';
 import LoadingSpinner from './LoadingSpinner';
 import NoCourses from './NoCourses';
@@ -21,7 +22,7 @@ export default class Courses extends React.Component {
     this.onGotData = this.onGotData.bind(this);
     this.createCourseInFirebase = this.createCourseInFirebase.bind(this);
     this.deleteCourseInFirebase = this.deleteCourseInFirebase.bind(this);
-    this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
+    //this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
   }
 
   onGotData(data) {
@@ -38,9 +39,7 @@ export default class Courses extends React.Component {
 
 
   componentDidMount() {
-    console.log('component did mount');
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
-
     //var updates = {}
     //updates['/-KcZ3NYYs2SUedkeLRKX/'] = {'name':'update yeah die dritte','teacher':'Old McDonald','place':'Kiel'};
     //this.firebaseRef.update(updates);
@@ -54,20 +53,15 @@ export default class Courses extends React.Component {
     this.firebaseRef.child(data).remove();
   }
 
-  updateCourseInFirebase(keyValue) {
-    <CourseInputModal keyValue={keyValue}/>;
-    console.log(keyValue);
-  }
+  /*updateCourseInFirebase(obj) {
+    this.data = obj;
+  }*/
 
   render() {
-
     let loading;
     if (this.state.loadingData) {
       loading = <LoadingSpinner />
     }
-
-
-
     let coursePreviews;
     if (this.state.courses !== null) {
       const courseData = this.state.courses;

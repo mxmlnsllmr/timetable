@@ -3,7 +3,6 @@ import NavBar from './NavBar';
 import CoursePreview from './CoursePreview';
 import AddCourseBtn from './AddCourseBtn';
 import CourseInputModal from './CourseInputModal';
-import CourseUpdateModal from './CourseUpdateModal';
 import firebaseApp from '../static/Firebase';
 import LoadingSpinner from './LoadingSpinner';
 import NoCourses from './NoCourses';

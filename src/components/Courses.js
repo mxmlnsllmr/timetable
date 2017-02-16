@@ -51,7 +51,11 @@ export default class Courses extends React.Component {
 
   updateCourseInFirebase(updateData) {
     var updates = {};
-    updates[updateData.firebaseKey] = {'name':updateData.name,'teacher':updateData.teacher,'place': updateData.place};
+    updates[updateData.firebaseKey] = {
+      'name': updateData.name,
+      'teacher': updateData.teacher,
+      'place': updateData.place
+    };
     this.firebaseRef.update(updates);
   }
 
@@ -65,7 +69,8 @@ export default class Courses extends React.Component {
       const courseData = this.state.courses;
       const firebaseKeys = Object.keys(courseData);
       coursePreviews = firebaseKeys.map(firebaseKey => <CoursePreview
-          deleteCourseInFirebase={this.deleteCourseInFirebase} updateCourseInFirebase={this.updateCourseInFirebase} firebaseKey={firebaseKey}
+          deleteCourseInFirebase={this.deleteCourseInFirebase} updateCourseInFirebase={this.updateCourseInFirebase}
+          firebaseKey={firebaseKey}
           name={courseData[firebaseKey].name} teacher={courseData[firebaseKey].teacher}
           place={courseData[firebaseKey].place} key={firebaseKey}/>
       );

@@ -18,10 +18,11 @@ export default class LoginForm extends React.Component {
     });
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     this.props.loginUser(this.state.email, this.state.password);
     event.preventDefault();
   }
+
   render() {
     return (
         <form onSubmit={this.handleSubmit}>

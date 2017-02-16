@@ -18,7 +18,7 @@ export default class RegisterForm extends React.Component {
     });
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     this.props.registerUser(this.state.email, this.state.password);
     event.preventDefault();
   }

@@ -9,14 +9,10 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      registerUser: false
+      password: ''
     };
 
     this.loginUser = this.loginUser.bind(this);
-    this.registerUser = this.registerUser.bind(this);
-    this.callRegisterForm = this.callRegisterForm.bind(this);
-
   };
 
 
@@ -34,26 +30,14 @@ export default class Login extends React.Component {
       this.context.router.push('/Timetable');
   }
 
-  registerUser(email, password) {
-    firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      alert(errorMessage);
-    });
-  }
 
 
-  callRegisterForm() {
-    this.setState({
-      registerUser: true,
-    });
-  }
 
   componentWillMount(){
     firebaseApp.auth().onAuthStateChanged(function (user) {
       if (user) {
         this.context.router.push('/Timetable');
+
       }
     }.bind(this));
   }
@@ -61,10 +45,8 @@ export default class Login extends React.Component {
 
   render() {
     return (
-        <div className="col-md-12">
-          {this.state.registerUser ? null : <div><h1>Login</h1> <LoginForm loginUser={this.loginUser}/></div>}
-          <p onClick={this.callRegisterForm}>register</p>
-          {this.state.registerUser ? <RegisterForm registerUser={this.registerUser}/> : null}
+        <div className="col-md-12 ">
+          <div><LoginForm loginUser={this.loginUser}/></div>
         </div>
     );
   }

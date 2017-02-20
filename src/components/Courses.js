@@ -16,7 +16,11 @@ export default class Courses extends React.Component {
       courses: null
     };
 
-    this.firebaseRef = firebaseApp.database().ref('courses');
+
+    let user = firebaseApp.auth().currentUser;
+
+
+    this.firebaseRef = firebaseApp.database().ref('users/' + user.uid + '/courses');
 
     this.onGotData = this.onGotData.bind(this);
     this.createCourseInFirebase = this.createCourseInFirebase.bind(this);
@@ -45,6 +49,7 @@ export default class Courses extends React.Component {
     firebaseApp.auth().onAuthStateChanged(function (user) {
       if (!user) {
         this.context.router.push('/Login');
+
       }
     }.bind(this));
   }
@@ -68,6 +73,7 @@ export default class Courses extends React.Component {
   }
 
   render() {
+
     let loading;
     if (this.state.loadingData) {
       loading = <LoadingSpinner />

@@ -1,15 +1,19 @@
 import React from 'react';
 import firebaseApp from '../static/Firebase';
+import RegisterForm from './RegisterForm';
 
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      registerUser: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
+    this.registerUser = this.registerUser.bind(this);
   }
 
   handleChange(event) {
@@ -33,33 +37,68 @@ export default class LoginForm extends React.Component {
     event.preventDefault();
   }
 
+  registerUser(email, password) {
+    firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+  }
+
+  handleRegister(event) {
+    this.setState({
+      registerUser: true
+    });
+    event.preventDefault();
+  }
+
   render() {
     return (
-        <form onSubmit={this.handleSubmit}>
-          <div className="container">
-            <div className="form-group row">
-              <label className="col-sm-2 col-form-label" htmlFor="LoginEmail">Email address</label>
-              <div className="col-sm-10">
-                <input name="email" onChange={this.handleChange} type="email" className="form-control"
-                       id="LoginEmail"
-                       aria-describedby="emailHelp"
-                       placeholder="Enter email" value={this.state.email}/>
+        <div>
+          {this.state.registerUser ? <RegisterForm registerUser={this.registerUser}/> : <div>
+                <form onSubmit={this.handleSubmit}>
+                  <div className="container">
+                    <div className="form-group row">
+                      <div className="col-md-4 col-md-offset-4">
+                        <input name="email" onChange={this.handleChange} type="email" className="form-control"
+                               id="LoginEmail"
+                               aria-describedby="emailHelp"
+                               placeholder="Enter email" value={this.state.email}/>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-md-4 col-md-offset-4">
+                        <input name="password" onChange={this.handleChange} type="password" className="form-control"
+                               id="exampleInputPassword1" placeholder="Password" value={this.state.password}/>
+                      </div>
+                    </div>
+
+                    <div className="form-group row">
+                      <div className="col-md-4 col-md-offset-4">
+                        <button type="submit" className="btn btn-primary btn-block">Sign in</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <form onSubmit={this.handleRegister}>
+                  <div className="container Register-btn-negative-top">
+                    <div className="form-group row">
+                      <div className="col-md-4 col-md-offset-4">
+                        <button type="submit" className="btn btn-default btn-block">Sign up</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </div>
-            <div className="form-group row">
-              <label className="col-sm-2 col-form-label" htmlFor="exampleInputPassword1">Password</label>
-              <div className="col-sm-10">
-                <input name="password" onChange={this.handleChange} type="password" className="form-control"
-                       id="exampleInputPassword1" placeholder="Password" value={this.state.password}/>
-              </div>
-            </div>
-          </div>
-          <div className="form-group row">
-            <div className="offset-sm-2 col-sm-10">
-              <button type="submit" className="btn btn-primary">Sign in</button>
-            </div>
-          </div>
-        </form>
+
+          }
+
+        </div>
+
+
+
     );
   }
 }

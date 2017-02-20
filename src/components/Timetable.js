@@ -8,8 +8,9 @@ export default class Timetable extends React.Component {
 
   componentWillMount() {
     firebaseApp.auth().onAuthStateChanged(function (user) {
-      console.log(user);
+
       if (!user) {
+        console.log(user);
         this.context.router.push('/Login');
       }
     }.bind(this));

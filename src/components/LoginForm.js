@@ -1,12 +1,12 @@
 import React from 'react';
+import firebaseApp from '../static/Firebase';
 
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      isLoggedIn: false
+      password: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,6 +20,16 @@ export default class LoginForm extends React.Component {
 
   handleSubmit(event) {
     this.props.loginUser(this.state.email, this.state.password);
+
+    firebaseApp.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        this.context.router.push('/Timetable');
+
+      } else {
+        console.log('not logged in');
+      }
+    }.bind(this));
+
     event.preventDefault();
   }
 
@@ -53,3 +63,7 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
+LoginForm.contextTypes = {
+  router: React.PropTypes.object
+};

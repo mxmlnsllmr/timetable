@@ -8,7 +8,7 @@ export default class NavBar extends React.Component {
           <ul className="nav nav-pills">
             <li role="presentation"><Link to="/timetable">Timetable</Link></li>
             <li role="presentation"><Link to="/courses">Courses</Link></li>
-            <li role="presentation"><Link to="/login">Logout</Link></li>
+            <li role="presentation"><Link to="/logout">Logout</Link></li>
           </ul>
         </nav>
     );

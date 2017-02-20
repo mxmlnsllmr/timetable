@@ -21,5 +21,3 @@ export default class Logout extends React.Component {
 Logout.contextTypes = {
   router: React.PropTypes.object
 };
-
-export default Logout;

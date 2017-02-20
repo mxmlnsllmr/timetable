@@ -41,6 +41,14 @@ export default class Courses extends React.Component {
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
   }
 
+  componentWillMount(){
+    firebaseApp.auth().onAuthStateChanged(function (user) {
+      if (!user) {
+        this.context.router.push('/Login');
+      }
+    }.bind(this));
+  }
+
   createCourseInFirebase(objectCourses) {
     this.firebaseRef.push(objectCourses);
   }
@@ -50,7 +58,7 @@ export default class Courses extends React.Component {
   }
 
   updateCourseInFirebase(updateData) {
-    var updates = {};
+    let updates = {};
     updates[updateData.firebaseKey] = {
       'name': updateData.name,
       'teacher': updateData.teacher,
@@ -98,3 +106,6 @@ export default class Courses extends React.Component {
     );
   }
 }
+Courses.contextTypes = {
+  router: React.PropTypes.object
+};

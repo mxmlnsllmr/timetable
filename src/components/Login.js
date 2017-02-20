@@ -10,7 +10,6 @@ export default class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLoggedIn: false,
       registerUser: false
     };
 
@@ -49,6 +48,14 @@ export default class Login extends React.Component {
     this.setState({
       registerUser: true,
     });
+  }
+
+  componentWillMount(){
+    firebaseApp.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        this.context.router.push('/Timetable');
+      }
+    }.bind(this));
   }
 
 

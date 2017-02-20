@@ -4,28 +4,23 @@ import firebaseApp from '../static/Firebase';
 
 
 export default class Timetable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false
-    };
-  }
+
 
   componentWillMount() {
-    let user = firebaseApp.auth().currentUser;
-
-    if (user != null) {
-      this.setState({
-        isLoggedIn: true
-      });
-    }
+    firebaseApp.auth().onAuthStateChanged(function (user) {
+      console.log(user);
+      if (!user) {
+        this.context.router.push('/Login');
+      }
+    }.bind(this));
   }
 
   render() {
 
     return (
         <div className="col-md-12">
-          {this.state.isLoggedIn ? <div><NavBar /> <h1> timetable</h1></div> : this.context.router.push('/Login')}
+          <NavBar />
+          <h1> timetable</h1>
         </div>
     );
   }

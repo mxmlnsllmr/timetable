@@ -5,6 +5,7 @@ import IndexPage from './components/IndexPage';
 import Timetable from './components/Timetable';
 import Courses from './components/Courses';
 import Login from './components/Login';
+import Logout from './components/Logout';
 
 
 const routes = (
@@ -13,6 +14,7 @@ const routes = (
       <Route path="/timetable" component={Timetable}/>
       <Route path="/courses" component={Courses}/>
       <Route path="/login" component={Login}/>
+      <Route path="/logout" component={Logout}/>
     </Route>
 );
 

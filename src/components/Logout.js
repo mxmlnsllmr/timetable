@@ -7,7 +7,7 @@ export default class Logout extends React.Component {
 
   componentDidMount() {
     firebaseApp.auth().signOut();
-    window.location.reload(true);
+    window.location.reload(true); //TODO refreshes the page and this is not good
     this.context.router.push('/Login');
   }
 

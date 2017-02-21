@@ -33,6 +33,7 @@ export default class RegisterForm extends React.Component {
     firebaseApp.auth().onAuthStateChanged(function (user) {
       if (user) {
         this.firebaseRef = firebaseApp.database().ref('users/' + user.uid + '/data');
+        console.log('clear');
         const dataObject = {
           firstname: this.state.firstname,
           name: this.state.name,
@@ -44,7 +45,7 @@ export default class RegisterForm extends React.Component {
         this.context.router.push('/Timetable');
 
       } else {
-        console.log('not logged in');
+        this.context.router.push('/Login');
       }
     }.bind(this));
 

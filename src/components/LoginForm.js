@@ -14,6 +14,7 @@ export default class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.registerUser = this.registerUser.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
   }
 
   handleChange(event) {
@@ -37,6 +38,7 @@ export default class LoginForm extends React.Component {
     event.preventDefault();
   }
 
+
   registerUser(email, password) {
     firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
       let errorCode = error.code;
@@ -51,6 +53,14 @@ export default class LoginForm extends React.Component {
       registerUser: true
     });
     event.preventDefault();
+  }
+
+  forgotPassword() {
+    const email = this.state.email;
+    firebaseApp.auth().sendPasswordResetEmail(email).catch(function (error) {
+      alert('bitte E-Mail Adresse eingeben');
+    });
+
   }
 
   render() {
@@ -87,6 +97,11 @@ export default class LoginForm extends React.Component {
                     <div className="form-group row">
                       <div className="col-md-4 col-md-offset-4">
                         <button type="submit" className="btn btn-default btn-block">Sign up</button>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-md-4 col-md-offset-4">
+                        <p className="text-center cursor-hand text-is-link Register-btn-negative-top" onClick={this.forgotPassword}>Forgot Password?</p>
                       </div>
                     </div>
                   </div>

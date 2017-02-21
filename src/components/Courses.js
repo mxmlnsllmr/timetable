@@ -6,6 +6,8 @@ import CourseInputModal from './CourseInputModal';
 import firebaseApp from '../static/Firebase';
 import LoadingSpinner from './LoadingSpinner';
 import NoCourses from './NoCourses';
+import SearchForCourses from './SearchForCourses'
+import CourseSearchModal from './CourseSearchModal';
 
 
 export default class Courses extends React.Component {
@@ -13,7 +15,8 @@ export default class Courses extends React.Component {
     super(props);
     this.state = {
       loadingData: true,
-      courses: null
+      courses: null,
+      publicCourses: null
     };
 
 
@@ -21,8 +24,10 @@ export default class Courses extends React.Component {
 
 
     this.firebaseRef = firebaseApp.database().ref('users/' + user.uid + '/courses');
+    this.firebaseRefPublic = firebaseApp.database().ref('public/courses/fh-kiel/iue/2/courses');
 
     this.onGotData = this.onGotData.bind(this);
+    this.onGotDataPublic = this.onGotDataPublic.bind(this);
     this.createCourseInFirebase = this.createCourseInFirebase.bind(this);
     this.deleteCourseInFirebase = this.deleteCourseInFirebase.bind(this);
     this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
@@ -34,6 +39,12 @@ export default class Courses extends React.Component {
       courses: data.val()
     });
   }
+  onGotDataPublic(data){
+    this.setState({
+      loadingData: false,
+      publicCourses: data.val()
+    });
+  }
 
   onErrData(errData) {
     console.log('Error!');
@@ -43,6 +54,7 @@ export default class Courses extends React.Component {
 
   componentDidMount() {
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
+    this.firebaseRefPublic.on('value', this.onGotDataPublic, this.onErrData);
   }
 
   componentWillMount(){
@@ -89,6 +101,7 @@ export default class Courses extends React.Component {
           place={courseData[firebaseKey].place} key={firebaseKey}/>
       );
     }
+
     else if (this.state.courses === null && !this.state.loadingData)
       coursePreviews = <NoCourses/>;
 
@@ -101,6 +114,8 @@ export default class Courses extends React.Component {
             </div>
             <div className="panel-body">
               <AddCourseBtn />
+              <SearchForCourses />
+              <CourseSearchModal publicCourses={this.state.publicCourses} />
               <CourseInputModal createCourseInFirebase={this.createCourseInFirebase}/>
               <div className="course-selector">
                 {loading}

@@ -1,5 +1,4 @@
 import React from 'react';
-import firebaseApp from '../static/Firebase';
 import Login from './Login';
 
 export default class RegisterForm extends React.Component {
@@ -21,6 +20,18 @@ export default class RegisterForm extends React.Component {
 
   }
 
+  componentWillUnmount(){
+    this.setState({
+      email:'',
+      password: '',
+      firstname: '',
+      name: '',
+      university: '',
+      city: '',
+      backToLogin: false
+    });
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -29,32 +40,11 @@ export default class RegisterForm extends React.Component {
 
   handleSubmit(event) {
     this.props.registerUser(this.state.email, this.state.password);
-
-    firebaseApp.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        this.firebaseRef = firebaseApp.database().ref('users/' + user.uid + '/data');
-        console.log('clear');
-        const dataObject = {
-          firstname: this.state.firstname,
-          name: this.state.name,
-          city: this.state.city,
-          university: this.state.university
-        };
-         console.log(dataObject);
-        this.firebaseRef.push(dataObject);
-        this.context.router.push('/Timetable');
-
-      } else {
-        this.context.router.push('/Login');
-      }
-    }.bind(this));
-
+    this.props.createUserData(this.state.firstname, this.state.name, this.state.city, this.state.university);
     event.preventDefault();
   }
 
-
-
-  handleBackToLoginBtn(event){
+  handleBackToLoginBtn(event) {
     this.setState({
       backToLogin: true
     });
@@ -62,6 +52,7 @@ export default class RegisterForm extends React.Component {
   }
 
   render() {
+    console.log('RegisterForm');
     return (
         <div>
           {this.state.backToLogin ? <Login /> :
@@ -134,7 +125,3 @@ export default class RegisterForm extends React.Component {
     );
   }
 }
-
-RegisterForm.contextTypes = {
-  router: React.PropTypes.object
-};

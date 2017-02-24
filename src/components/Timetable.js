@@ -10,14 +10,14 @@ export default class Timetable extends React.Component {
     firebaseApp.auth().onAuthStateChanged(function (user) {
 
       if (!user) {
-        console.log('timetable');
+        console.log('user not logged in - timetableComponent');
         this.context.router.push('/Login');
       }
     }.bind(this));
   }
 
   render() {
-
+  console.log('timetable');
     return (
         <div className="col-md-12">
           <NavBar />

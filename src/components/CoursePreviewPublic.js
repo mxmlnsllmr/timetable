@@ -1,14 +1,17 @@
 import React from 'react';
 
-function clicked() {
-  let el = document.getElementById('test');
-  el.style.backgroundColor
-}
 
 
 function CoursePreviewPublic(props) {
   return (
-      <div ref="test" onClick={clicked}>{props.name}</div>
+
+  <div className="course-preview list-group">
+    <h4 className="name list-group-item active course-preview-top">{props.name}</h4>
+    <h4 className="list-group-item course-preview-items">{props.teacher}</h4>
+    <h4 className="list-group-item course-preview-items">{props.place}</h4>
+  </div>
+
+
   );
 }
 export default CoursePreviewPublic;

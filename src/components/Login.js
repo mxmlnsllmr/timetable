@@ -102,7 +102,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    console.log('Login');
+    //console.log('Login');
     return (
         <div className="col-md-12 ">
           {this.state.registerUser ? <RegisterForm createUserData={this.createUserData} registerUser={this.registerUser}/> :

@@ -14,7 +14,7 @@ export default class SignUpBtn extends React.Component {
   }
 
   render() {
-    console.log('SignUpBtn');
+    //console.log('SignUpBtn');
     return (
         <div className="container">
           <div className="form-group row">

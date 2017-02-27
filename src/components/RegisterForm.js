@@ -52,7 +52,7 @@ export default class RegisterForm extends React.Component {
   }
 
   render() {
-    console.log('RegisterForm');
+    //console.log('RegisterForm');
     return (
         <div>
           {this.state.backToLogin ? <Login /> :

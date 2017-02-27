@@ -32,7 +32,7 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
-    console.log('LoginForm');
+    //console.log('LoginForm');
     return (
         <div>
           <form onSubmit={this.handleSubmit}>

@@ -16,7 +16,7 @@ export default class ForgotPasswordBtn extends React.Component {
 
 
   render() {
-    console.log('ForgotPasswordBtn');
+    //console.log('ForgotPasswordBtn');
     return (
         <div className="container">
           <div className="form-group row">

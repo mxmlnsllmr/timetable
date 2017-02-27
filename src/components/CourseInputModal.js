@@ -9,7 +9,8 @@ export default class CourseInputModal extends React.Component {
       teacher: '',
       description: '',
       place: '',
-      courses: null
+      courses: null,
+      public: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,6 +18,7 @@ export default class CourseInputModal extends React.Component {
   }
 
   handleSubmit(event) {
+
     const courseData =
         {
           name: this.state.courseName,
@@ -25,21 +27,42 @@ export default class CourseInputModal extends React.Component {
           place: this.state.place,
           uniqueKey: Date.now()
         }
+    if (this.state.public === false){
+      this.props.createCourseInFirebase(courseData);
+    }
+    else {
+      this.props.createCourseInFirebase(courseData);
+      this.props.createCourseInFirebaseAsPublic(courseData);
+    }
 
-    this.props.createCourseInFirebase(courseData);
+
+
     this.setState({
       courseName: '',
       teacher: '',
       description: '',
       place: '',
+      public: true
     });
     event.preventDefault();
   }
 
   handleChange(event) {
+
+
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+
+
+    /*const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [event.target.name]: event.target.value
-    });
+    });*/
   }
 
   isInputValid() {
@@ -79,6 +102,22 @@ export default class CourseInputModal extends React.Component {
                   </div>
                 </div>
                 <div className="modal-footer">
+
+
+                  <label>
+                    public:
+                    <input
+                        name="public"
+                        type="checkbox"
+                        checked={this.state.public}
+                        onChange={this.handleChange} />
+                  </label>
+
+
+
+
+
+
                   <button type="button" className="btn btn-default" data-dismiss="modal">
                     Close
                   </button>

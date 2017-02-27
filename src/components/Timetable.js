@@ -13,11 +13,14 @@ export default class Timetable extends React.Component {
         console.log('user not logged in - timetableComponent');
         this.context.router.push('/Login');
       }
+      else {
+        console.log(user.email);
+      }
     }.bind(this));
   }
 
   render() {
-  console.log('timetable');
+  //console.log('timetable');
     return (
         <div className="col-md-12">
           <NavBar />

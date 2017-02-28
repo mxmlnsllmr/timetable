@@ -27,14 +27,13 @@ export default class CourseInputModal extends React.Component {
           place: this.state.place,
           uniqueKey: Date.now()
         }
-    if (this.state.public === false){
+    if (this.state.public === false) {
       this.props.createCourseInFirebase(courseData);
     }
     else {
       this.props.createCourseInFirebase(courseData);
       this.props.createCourseInFirebaseAsPublic(courseData);
     }
-
 
 
     this.setState({
@@ -60,9 +59,9 @@ export default class CourseInputModal extends React.Component {
 
 
     /*const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({
-      [event.target.name]: event.target.value
-    });*/
+     this.setState({
+     [event.target.name]: event.target.value
+     });*/
   }
 
   isInputValid() {
@@ -103,25 +102,23 @@ export default class CourseInputModal extends React.Component {
                 </div>
                 <div className="modal-footer">
 
-
-                  <label>
-                    public:
-                    <input
-                        name="public"
-                        type="checkbox"
-                        checked={this.state.public}
-                        onChange={this.handleChange} />
-                  </label>
-
-
-
-
-
+                  <div className="checkbox">
+                    <label>
+                      public:
+                      <input
+                          name="public"
+                          type="checkbox"
+                          data-toggle="toggle"
+                          checked={this.state.public}
+                          onChange={this.handleChange}/>
+                    </label>
+                  </div>
 
                   <button type="button" className="btn btn-default" data-dismiss="modal">
                     Close
                   </button>
-                  <button disabled={!this.isInputValid()} type="submit" value="Submit" className="btn btn-primary">Submit
+                  <button disabled={!this.isInputValid()} type="submit" value="Submit" className="btn btn-primary">
+                    Submit
                   </button>
                 </div>
               </div>

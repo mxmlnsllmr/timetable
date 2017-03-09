@@ -1,4 +1,5 @@
 import React from 'react';
+import Toggle from 'react-bootstrap-toggle';
 
 export default class CourseInputModal extends React.Component {
 
@@ -15,6 +16,12 @@ export default class CourseInputModal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isInputValid = this.isInputValid.bind(this);
+    this.onToggle = this.onToggle.bind(this);
+  }
+
+
+  onToggle() {
+    this.setState({ public: !this.state.public });
   }
 
   handleSubmit(event) {
@@ -56,6 +63,8 @@ export default class CourseInputModal extends React.Component {
     this.setState({
       [name]: value
     });
+
+
 
 
     /*const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -102,22 +111,26 @@ export default class CourseInputModal extends React.Component {
                 </div>
                 <div className="modal-footer">
 
-                  <div className="checkbox">
-                    <label>
-                      public:
-                      <input
+                  <div className="pull-left">
+                  <Toggle
+                          size="sm"
                           name="public"
                           type="checkbox"
-                          data-toggle="toggle"
+                          on="public"
+                          off="private"
+                          offstyle="danger"
+                          onstyle="success"
+                          active={this.state.public}
                           checked={this.state.public}
-                          onChange={this.handleChange}/>
-                    </label>
-                  </div>
+                          onChange={this.handleChange}
+                          onClick={this.onToggle} />
+                </div>
 
-                  <button type="button" className="btn btn-default" data-dismiss="modal">
+
+                  <button type="button" className="btn btn-default btn-sm" data-dismiss="modal">
                     Close
                   </button>
-                  <button disabled={!this.isInputValid()} type="submit" value="Submit" className="btn btn-primary">
+                  <button disabled={!this.isInputValid()} type="submit" value="Submit" className="btn btn-primary btn-sm">
                     Submit
                   </button>
                 </div>

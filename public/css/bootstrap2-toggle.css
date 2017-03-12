@@ -90,11 +90,11 @@ label.checkbox.inline .toggle {
 .toggle-off.btn-lg { padding-left: 35px; }
 
 
-.toggle.btn-small { min-width: 25px; }
+.toggle.btn-small { min-width: 66px; }
 .toggle-on.btn-small { padding-right: 20px; }
 .toggle-off.btn-small { padding-left: 20px; }
 
-.toggle.btn-sm { min-width: 25px; }
+.toggle.btn-sm { min-width: 66px; }
 .toggle-on.btn-sm { padding-right: 20px; }
 .toggle-off.btn-sm { padding-left: 20px; }
 

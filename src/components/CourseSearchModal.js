@@ -1,17 +1,20 @@
 import React from 'react';
 import CoursePreviewPublic from './CoursePreviewPublic';
 
+
 export default class CourseSearchModal extends React.Component{
+
 
 
   render() {
     let publicC;
+
     if (this.props.publicCourses !== null) {
       const courseData = this.props.publicCourses;
       const firebaseKeysPublic = Object.keys(courseData);
       publicC = firebaseKeysPublic.map(firebaseKey => <CoursePreviewPublic
           firebaseKey={firebaseKey}
-          name={courseData[firebaseKey].name} key={firebaseKey}/>
+          name={courseData[firebaseKey].name} teacher={courseData[firebaseKey].teacher} place={courseData[firebaseKey].place} key={firebaseKey}/>
       );
     }
     return(
@@ -37,6 +40,10 @@ export default class CourseSearchModal extends React.Component{
               </button>
               <button type="submit" value="Submit" className="btn btn-primary">Submit
               </button>
+
+
+
+
             </div>
           </div>
         </div>

@@ -32,6 +32,7 @@ export default class Courses extends React.Component {
     this.deleteCourseInFirebase = this.deleteCourseInFirebase.bind(this);
     this.updateCourseInFirebase = this.updateCourseInFirebase.bind(this);
     this.createCourseInFirebaseAsPublic = this.createCourseInFirebaseAsPublic.bind(this);
+    this.pushPublicCourse = this.pushPublicCourse.bind(this);
   }
 
   onGotData(data) {
@@ -52,6 +53,9 @@ export default class Courses extends React.Component {
     console.log(errData);
   }
 
+  pushPublicCourse(publicCourses){
+    this.firebaseRef.push(publicCourses);
+  }
 
   componentDidMount() {
     this.firebaseRef.on('value', this.onGotData, this.onErrData);
@@ -120,7 +124,7 @@ export default class Courses extends React.Component {
             <div className="panel-body">
               <AddCourseBtn />
               <SearchForCourses />
-              <CourseSearchModal publicCourses={this.state.publicCourses} />
+              <CourseSearchModal publicCourses={this.state.publicCourses} pushPublicCourse={this.pushPublicCourse} />
               <CourseInputModal createCourseInFirebaseAsPublic={this.createCourseInFirebaseAsPublic} createCourseInFirebase={this.createCourseInFirebase}/>
               <div className="course-selector">
                 {loading}

@@ -6,6 +6,7 @@ import Timetable from './components/Timetable';
 import Courses from './components/Courses';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import UserArea from './components/UserArea';
 
 
 const routes = (
@@ -15,6 +16,7 @@ const routes = (
       <Route path="/courses" component={Courses}/>
       <Route path="/login" component={Login}/>
       <Route path="/logout" component={Logout}/>
+      <Route path="/userarea" component={UserArea}/>
     </Route>
 );
 

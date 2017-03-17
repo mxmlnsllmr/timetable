@@ -34,7 +34,7 @@ export default class NavBar extends React.Component {
             <li role="presentation" className="navbar-left"><Link to="/timetable">Timetable</Link></li>
             <li role="presentation" className="navbar-left"><Link to="/courses">Courses</Link></li>
             <li role="presentation" className="navbar-right"><Link to="/logout">Logout</Link></li>
-          <li className="navbar-text navbar-right">{this.state.email}</li>
+            <li className="navbar-right"><Link to="/userarea">{this.state.email}</Link></li>
 
           </ul>
           </div>

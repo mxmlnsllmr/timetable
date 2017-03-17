@@ -16,6 +16,7 @@ export default class CoursePreviewPublic extends React.Component {
 
   }
 
+
 //Erweitert den Bereich für restliche Informationen bei Klick
   expandContent() {
     if(this.state.isOpen) {
@@ -30,9 +31,22 @@ export default class CoursePreviewPublic extends React.Component {
     }
   }
 
-  //Toggelfunktion
+  //Togglefunktion
   onToggle() {
-    this.setState({ toggle: !this.state.toggle });
+    this.setState({
+      toggle: !this.state.toggle,
+      toggledCourses: [this.props.name]
+    });
+
+      const publicCourse = {
+        name: this.props.name,
+        teacher: this.props.teacher,
+        place: this.props.place,
+        uniqueKey: this.props.uniqueKey
+      };
+      this.props.pushPUBLIC(publicCourse);
+
+
   }
 
   render() {

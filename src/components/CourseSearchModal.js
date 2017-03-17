@@ -3,7 +3,24 @@ import CoursePreviewPublic from './CoursePreviewPublic';
 
 
 export default class CourseSearchModal extends React.Component{
+  constructor(props) {
+    super(props);
 
+    this.onSubmit = this.onSubmit.bind(this);
+    this.pushPUBLIC = this.pushPUBLIC.bind(this);
+
+  }
+
+
+  pushPUBLIC(publicCourses){
+    console.log(publicCourses);
+    this.props.pushPublicCourse(publicCourses);
+  }
+
+  onSubmit(event){
+    //this.props.pushPublicCourse();
+    event.preventDefault();
+  }
 
 
   render() {
@@ -14,11 +31,11 @@ export default class CourseSearchModal extends React.Component{
       const firebaseKeysPublic = Object.keys(courseData);
       publicC = firebaseKeysPublic.map(firebaseKey => <CoursePreviewPublic
           firebaseKey={firebaseKey}
-          name={courseData[firebaseKey].name} teacher={courseData[firebaseKey].teacher} place={courseData[firebaseKey].place} key={firebaseKey}/>
+          name={courseData[firebaseKey].name} teacher={courseData[firebaseKey].teacher} place={courseData[firebaseKey].place} key={firebaseKey} uniqueKey={courseData[firebaseKey].uniqueKey} pushPUBLIC={this.pushPUBLIC}/>
       );
     }
     return(
-        <form>
+        <form onSubmit={this.onSubmit}>
       <div>
         <hr />
       </div>

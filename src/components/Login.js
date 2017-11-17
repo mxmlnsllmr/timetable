@@ -13,8 +13,6 @@ export default class Login extends React.Component {
       registerUser: false,
       email: ''
     };
-
-
     this.loginUser = this.loginUser.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.signUp = this.signUp.bind(this);

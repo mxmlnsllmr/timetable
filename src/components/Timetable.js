@@ -20,7 +20,6 @@ export default class Timetable extends React.Component {
   }
 
   render() {
-  //console.log('timetable');
     return (
         <div className="col-md-12">
           <NavBar />
